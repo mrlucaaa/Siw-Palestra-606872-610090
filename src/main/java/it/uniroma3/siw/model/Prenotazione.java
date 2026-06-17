@@ -8,7 +8,8 @@ public class Prenotazione {
 	private Long id;
 	private LocalDateTime dataCreazione;
 	private StatoPrenotazione stato;
-
+	@ManyToOne
+	private Corso corso;
 	@ManyToOne
 	private Utente utente;
 	

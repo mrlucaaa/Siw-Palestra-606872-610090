@@ -2,13 +2,22 @@ package it.uniroma3.siw.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+
 public class Utente {
 	private Long id;
 	private String nome;
 	private String cognome;
 	private String codiceFiscale;
 	private String email;
-
+	
+	@OneToOne
+	private Credentials credentials;
+	
+	@OneToMany(mappedBy = "utentes")
+	private Prenotazione prenotazione;
+		
 	public Long getId() {
 		return id;
 	}
