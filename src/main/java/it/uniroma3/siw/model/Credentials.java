@@ -2,10 +2,16 @@ package it.uniroma3.siw.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.OneToOne;
+
 public class Credentials {
 	private Long id;
 	private String password;
 	private String Username;
+	@OneToOne
+	private Utente utente;
+	@OneToOne
+	private Istruttore istruttore;
 	
 	
 	public Long getId() {

@@ -2,11 +2,14 @@ package it.uniroma3.siw.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.ManyToOne;
+
 public class Prenotazione {
 	private Long id;
 	private LocalDateTime dataCreazione;
 	private StatoPrenotazione stato;
-	
+	@ManyToOne
+	private Utente utente;
 	
 	
 	public Long getId() {
