@@ -1,6 +1,9 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
+
+import jakarta.persistence.OneToMany;
 
 public class Istruttore {
 	private Long id;
@@ -9,13 +12,8 @@ public class Istruttore {
 	private String cognome;
 	private String specializzazione;
 	
-	public Istruttore(Long id, Long codiceTessera, String nome, String cognome, String specializzazione) {
-		this.id = id;
-		this.codiceTessera = codiceTessera;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.specializzazione = specializzazione;
-	}
+	@OneToMany(mappedBy = "istruttore")
+	private List<Corso> corso;
 
 	public Long getId() {
 		return id;

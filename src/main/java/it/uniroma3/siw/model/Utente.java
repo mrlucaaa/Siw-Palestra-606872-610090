@@ -8,14 +8,6 @@ public class Utente {
 	private String cognome;
 	private String codiceFiscale;
 	private String email;
-	
-	public Utente(Long id, String nome, String cognome, String codiceFiscale, String email) {
-		this.id = id;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.codiceFiscale = codiceFiscale;
-		this.email = email;
-	}
 
 	public Long getId() {
 		return id;

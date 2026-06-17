@@ -8,9 +8,9 @@ public class Prenotazione {
 	private Long id;
 	private LocalDateTime dataCreazione;
 	private StatoPrenotazione stato;
+
 	@ManyToOne
 	private Utente utente;
-	
 	
 	public Long getId() {
 		return id;

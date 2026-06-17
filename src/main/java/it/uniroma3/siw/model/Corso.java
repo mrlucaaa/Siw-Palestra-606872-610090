@@ -1,7 +1,11 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 public class Corso {
 	private Long id;
@@ -10,13 +14,15 @@ public class Corso {
 	private Long capienzaMax;
 	private LocalDateTime dataOra;
 	
-	public Corso(Long id, String nome, String descrizione, Long capienzaMax, LocalDateTime dataOra) {
-		this.id = id;
-		this.nome = nome;
-		this.descrizione = descrizione;
-		this.capienzaMax = capienzaMax;
-		this.dataOra = dataOra;
-	}
+	@ManyToOne
+	private Istruttore istruttore;
+	
+	@OneToMany(mappedBy = "corso")
+	List<Prenotazione> prenotazioni;
+	
+	@OneToMany(mappedBy = "corso")
+	List<Recensione> recensioni;
+	
 
 	public Long getId() {
 		return id;
