@@ -8,6 +8,8 @@ public class Credentials {
 	private Long id;
 	private String password;
 	private String Username;
+	private RuoloUtente ruolo;
+
 	@OneToOne
 	private Utente utente;
 	@OneToOne
@@ -39,6 +41,18 @@ public class Credentials {
 		this.ruolo = ruolo;
 	}
 	
+	public Utente getUtente() {
+		return utente;
+	}
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+	public Istruttore getIstruttore() {
+		return istruttore;
+	}
+	public void setIstruttore(Istruttore istruttore) {
+		this.istruttore = istruttore;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(Username);
@@ -54,6 +68,5 @@ public class Credentials {
 		Credentials other = (Credentials) obj;
 		return Objects.equals(Username, other.Username);
 	}
-	private RuoloUtente ruolo;
 	
 }

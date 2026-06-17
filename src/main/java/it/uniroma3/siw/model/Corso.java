@@ -64,6 +64,30 @@ public class Corso {
 		this.dataOra = dataOra;
 	}
 
+	public Istruttore getIstruttore() {
+		return istruttore;
+	}
+
+	public void setIstruttore(Istruttore istruttore) {
+		this.istruttore = istruttore;
+	}
+
+	public List<Prenotazione> getPrenotazioni() {
+		return prenotazioni;
+	}
+
+	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+		this.prenotazioni = prenotazioni;
+	}
+
+	public List<Recensione> getRecensioni() {
+		return recensioni;
+	}
+
+	public void setRecensioni(List<Recensione> recensioni) {
+		this.recensioni = recensioni;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(dataOra, nome);

@@ -17,6 +17,9 @@ public class Utente {
 	
 	@OneToMany(mappedBy = "utente")
 	private Prenotazione prenotazione;
+	
+	@OneToMany(mappedBy = "utente")
+	private Recensione recensione;
 		
 	public Long getId() {
 		return id;
@@ -56,6 +59,30 @@ public class Utente {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Credentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
+	}
+
+	public Prenotazione getPrenotazione() {
+		return prenotazione;
+	}
+
+	public void setPrenotazione(Prenotazione prenotazione) {
+		this.prenotazione = prenotazione;
+	}
+
+	public Recensione getRecensione() {
+		return recensione;
+	}
+
+	public void setRecensione(Recensione recensione) {
+		this.recensione = recensione;
 	}
 
 	@Override

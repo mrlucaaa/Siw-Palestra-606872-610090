@@ -55,6 +55,14 @@ public class Istruttore {
 		this.specializzazione = specializzazione;
 	}
 
+	public List<Corso> getCorso() {
+		return corso;
+	}
+
+	public void setCorso(List<Corso> corso) {
+		this.corso = corso;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(codiceTessera);

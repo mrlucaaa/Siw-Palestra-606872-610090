@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import jakarta.persistence.ManyToOne;
 
@@ -8,8 +9,10 @@ public class Prenotazione {
 	private Long id;
 	private LocalDateTime dataCreazione;
 	private StatoPrenotazione stato;
+	
 	@ManyToOne
 	private Corso corso;
+	
 	@ManyToOne
 	private Utente utente;
 	
@@ -30,6 +33,34 @@ public class Prenotazione {
 	}
 	public void setStato(StatoPrenotazione stato) {
 		this.stato = stato;
+	}
+	public Corso getCorso() {
+		return corso;
+	}
+	public void setCorso(Corso corso) {
+		this.corso = corso;
+	}
+	public Utente getUtente() {
+		return utente;
+	}
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(corso, dataCreazione, utente);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Prenotazione other = (Prenotazione) obj;
+		return Objects.equals(corso, other.corso) && Objects.equals(dataCreazione, other.dataCreazione)
+				&& Objects.equals(utente, other.utente);
 	}
 
 }
