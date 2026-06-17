@@ -15,7 +15,7 @@ public class Utente {
 	@OneToOne
 	private Credentials credentials;
 	
-	@OneToMany(mappedBy = "utentes")
+	@OneToMany(mappedBy = "utente")
 	private Prenotazione prenotazione;
 		
 	public Long getId() {
