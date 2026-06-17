@@ -1,33 +1,92 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# =========================
+# File di Sistema Operativo
+# =========================
 
-### STS ###
-.apt_generated
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux (Fedora)
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =========================
+# IDE (Spring Tool Suite / Eclipse)
+# =========================
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.project
 .classpath
 .factorypath
-.project
-.settings
 .springBeans
-.sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# =========================
+# Backend: Java & Spring
+# =========================
+*.class
+*.log
+*.jar
+*.war
+*.ear
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle (nel caso venga utilizzato)
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# =========================
+# Frontend: React, Node, HTML, CSS
+# =========================
+
+# Dipendenze Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Directory di build di produzione
+/build/
 /dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+/.next/
+/.nuxt/
+/.out/
 
-### VS Code ###
-.vscode/
+# File di ambiente locale (Non tracciare mai chiavi segrete/API keys)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# File di cache
+.eslintcache
+.stylelintcache
