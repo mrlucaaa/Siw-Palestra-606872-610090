@@ -1,7 +1,12 @@
 package it.uniroma3.siw.service;
 
-import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import it.uniroma3.siw.model.Corso;
+import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.repository.RecensioneRepository;
 
 @Service
@@ -10,5 +15,14 @@ public class RecensioneService {
 
 	public RecensioneService(RecensioneRepository recensioneRepository) {
 		this.recensioneRepository = recensioneRepository;
+	}
+	
+	
+	@Transactional
+	public void save(Corso corso, Recensione recensione) {
+		recensione.setDataOra(LocalDateTime.now());
+		recensione.setCorso(corso);
+		//agganciare utente
+		recensioneRepository.save(recensione);
 	}
 }

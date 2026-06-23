@@ -1,7 +1,11 @@
 package it.uniroma3.siw.service;
 
-import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.StatoPrenotazione;
 import it.uniroma3.siw.repository.PrenotazioneRepository;
@@ -22,8 +26,19 @@ public class PrenotazioneService {
 		return prenotazioneRepository.findById(id).orElse(null);
 	}
 	
+	@Transactional
 	public void disdiciPrenotazione(Prenotazione prenotazione) {
 		prenotazione.setStato(StatoPrenotazione.DISDETTA);
 		this.prenotazioneRepository.save(prenotazione);
 	}
+	
+	@Transactional
+	public void save(Corso corso) {
+		Prenotazione prenotazione = new Prenotazione();
+		prenotazione.setCorso(corso);
+		prenotazione.setDataCreazione(LocalDateTime.now());
+		prenotazione.setStato(StatoPrenotazione.ATTIVA);
+		this.prenotazioneRepository.save(prenotazione);
+	}
+	
 }

@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.OneToMany;
@@ -16,10 +17,10 @@ public class Utente {
 	private Credentials credentials;
 	
 	@OneToMany(mappedBy = "utente")
-	private Prenotazione prenotazione;
+	private List<Prenotazione> prenotazione;
 	
 	@OneToMany(mappedBy = "utente")
-	private Recensione recensione;
+	private List<Recensione> recensione;
 		
 	public Long getId() {
 		return id;
@@ -69,19 +70,19 @@ public class Utente {
 		this.credentials = credentials;
 	}
 
-	public Prenotazione getPrenotazione() {
+	public List<Prenotazione> getPrenotazione() {
 		return prenotazione;
 	}
 
-	public void setPrenotazione(Prenotazione prenotazione) {
+	public void setPrenotazione(List<Prenotazione> prenotazione) {
 		this.prenotazione = prenotazione;
 	}
 
-	public Recensione getRecensione() {
+	public List<Recensione> getRecensione() {
 		return recensione;
 	}
 
-	public void setRecensione(Recensione recensione) {
+	public void setRecensione(List<Recensione> recensione) {
 		this.recensione = recensione;
 	}
 

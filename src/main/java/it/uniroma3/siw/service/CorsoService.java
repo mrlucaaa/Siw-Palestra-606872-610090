@@ -1,9 +1,9 @@
 package it.uniroma3.siw.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Corso;
-import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.repository.CorsoRepository;
 
 @Service
@@ -26,14 +26,17 @@ public class CorsoService {
 		return this.corsoRepository.findByIdWithIstruttoreAndUtenti(id).orElse(null);
 	}
 	
+	@Transactional
 	public void save(Corso corso) {
 		this.corsoRepository.save(corso);
 	}
 	
+	@Transactional
 	public void deleteById(Long id) {
 		this.corsoRepository.deleteById(id);
 	}
 	
+	@Transactional
 	public void update(Corso corsoNuovo) {
 		Corso corsoVecchio = this.corsoRepository.findById(corsoNuovo.getId()).orElse(null);
 		corsoVecchio.setNome(corsoNuovo.getNome());
