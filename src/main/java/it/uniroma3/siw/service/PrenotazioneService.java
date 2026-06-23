@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.exception.PrenotazioneNotFoundException;
 import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.StatoPrenotazione;
@@ -15,17 +16,23 @@ import it.uniroma3.siw.repository.PrenotazioneRepository;
 @Transactional(readOnly = true)
 public class PrenotazioneService {
 	private PrenotazioneRepository prenotazioneRepository;
+	private CredentialsService credentialsService;
 
-	public PrenotazioneService(PrenotazioneRepository prenotazioneRepository) {
+	public PrenotazioneService(PrenotazioneRepository prenotazioneRepository, CredentialsService credentialsService) {
 		this.prenotazioneRepository = prenotazioneRepository;
+		this.credentialsService = credentialsService;
 	}
 	
 	public Iterable<Prenotazione> findAll(){
 		return this.prenotazioneRepository.findAll();
 	}
 	
-	public Prenotazione findById(Long id) {
-		return prenotazioneRepository.findById(id).orElse(null);
+	public Prenotazione findById(Long id) throws PrenotazioneNotFoundException {
+		Prenotazione prenotazione = prenotazioneRepository.findById(id).orElse(null);
+		if(prenotazione==null) {
+			throw new PrenotazioneNotFoundException();
+		}
+		return prenotazione;
 	}
 	
 	@Transactional
@@ -35,15 +42,16 @@ public class PrenotazioneService {
 	}
 	
 	@Transactional
-	public void save(Corso corso) {
+	public void save(Corso corso, Utente utente) {
 		Prenotazione prenotazione = new Prenotazione();
 		prenotazione.setCorso(corso);
 		prenotazione.setDataCreazione(LocalDateTime.now());
 		prenotazione.setStato(StatoPrenotazione.ATTIVA);
+		prenotazione.setUtente(utente);
 		this.prenotazioneRepository.save(prenotazione);
 	}
 	
-	public Iterable<Prenotazione> fingByUtente(Utente utente){
+	public Iterable<Prenotazione> findByUtente(Utente utente){
 		return this.prenotazioneRepository.findByUtente(utente);
 	}
 	

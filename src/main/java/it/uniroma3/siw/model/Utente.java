@@ -3,12 +3,14 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -16,18 +18,22 @@ public class Utente {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cognome;
+	@NotBlank
 	private String codiceFiscale;
+	@NotBlank
 	private String email;
 	
 	@OneToOne
 	private Credentials credentials;
 	
-	@OneToMany(mappedBy = "utente")
+	@OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
 	private List<Prenotazione> prenotazioni;
 	
-	@OneToMany(mappedBy = "utente")
+	@OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
 	private List<Recensione> recensione;
 		
 	public Long getId() {

@@ -4,29 +4,45 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 @Entity
 public class Corso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@NotBlank 
 	private String nome;
+	
 	private String descrizione;
+	
+	@NotNull
+	@Min(1)
+	@Max(100)
 	private Long capienzaMax;
+	
+	@Future
+	@NotNull
 	private LocalDateTime dataOra;
 	
 	@ManyToOne
 	private Istruttore istruttore;
 	
-	@OneToMany(mappedBy = "corso")
+	@OneToMany(mappedBy = "corso", cascade = CascadeType.ALL)
 	List<Prenotazione> prenotazioni;
 	
-	@OneToMany(mappedBy = "corso")
+	@OneToMany(mappedBy = "corso", cascade = CascadeType.ALL)
 	List<Recensione> recensioni;
 	
 

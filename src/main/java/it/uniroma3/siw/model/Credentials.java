@@ -2,6 +2,7 @@ package it.uniroma3.siw.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,21 +10,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 @Entity
 public class Credentials {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	@NotBlank
+	@Size(min=6)
 	private String password;
-	private String Username;
+	@NotBlank
+	private String username;
 	@Enumerated(EnumType.STRING)
 	private RuoloUtente ruolo;
-
-	@OneToOne
-	private Utente utente;
-	@OneToOne
-	private Istruttore istruttore;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Utente utente;
+
 	
 	public Long getId() {
 		return id;
@@ -38,10 +43,10 @@ public class Credentials {
 		this.password = password;
 	}
 	public String getUsername() {
-		return Username;
+		return username;
 	}
 	public void setUsername(String username) {
-		Username = username;
+		username = username;
 	}
 	public RuoloUtente getRuolo() {
 		return ruolo;
@@ -56,15 +61,10 @@ public class Credentials {
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
-	public Istruttore getIstruttore() {
-		return istruttore;
-	}
-	public void setIstruttore(Istruttore istruttore) {
-		this.istruttore = istruttore;
-	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(Username);
+		return Objects.hash(username);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -75,7 +75,7 @@ public class Credentials {
 		if (getClass() != obj.getClass())
 			return false;
 		Credentials other = (Credentials) obj;
-		return Objects.equals(Username, other.Username);
+		return Objects.equals(username, other.username);
 	}
 	
 }

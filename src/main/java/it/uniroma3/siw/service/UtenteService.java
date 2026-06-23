@@ -18,4 +18,12 @@ public class UtenteService {
 	public Iterable<Utente> findAll(){
 		return utenteRepository.findAll();
 	}
+	
+	public Utente findUtente(Long id) {
+		return this.utenteRepository.findById(id).orElse(null);
+	}
+	
+	public void saveUtente(Utente utente) {
+		this.utenteRepository.save(utente);
+	}
 }

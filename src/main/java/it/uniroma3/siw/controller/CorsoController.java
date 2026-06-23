@@ -2,14 +2,17 @@ package it.uniroma3.siw.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.exception.DuplicateCorsoException;
 import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.service.CorsoService;
 import it.uniroma3.siw.service.IstruttoreService;
+import jakarta.validation.Valid;
 
 @Controller
 public class CorsoController {
@@ -28,8 +31,8 @@ public class CorsoController {
 	}
 	
 	@GetMapping("/corsi/{id}")
-	public String show(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("corsi", this.corsoService.findByIdWithIstruttoreAndUtenti(id));
+	public String show(@PathVariable("id") Long id, Model model){
+		model.addAttribute("corso", this.corsoService.findByIdWithIstruttoreAndUtenti(id));
 		return "corsi/show.html";
 	}
 	
@@ -41,9 +44,21 @@ public class CorsoController {
 	}
 	
 	@PostMapping("/admin/corsi")
-	public String newCorso(@ModelAttribute("corso") Corso corso) {
-		this.corsoService.save(corso);
-		return "redirect:/corsi";
+	public String newCorso(@Valid @ModelAttribute("corso") Corso corso, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("istruttori", this.istruttoreService.findAll());
+			return "corsi/form.html";
+		}
+		
+		try {
+			this.corsoService.save(corso);
+			return "redirect:/corsi";
+		}
+		catch(DuplicateCorsoException e) {
+			bindingResult.reject("corso.duplicate");
+			return "corsi/form";
+		}
+		
 	}
 	
 	@GetMapping("/admin/corsi/{id}")
@@ -54,13 +69,24 @@ public class CorsoController {
 	
 	@GetMapping("/istruttore/corsi/edit/{id}")
 	public String formEditCorso(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("corsi", this.corsoService.findById(id));
+		model.addAttribute("corso", this.corsoService.findById(id));
+		model.addAttribute("istruttori", this.istruttoreService.findAll());
 		return "corsi/edit";
 	}
 	
 	@PostMapping("/istruttore/corsi/edit/{id}")
-	public String editCorso(@ModelAttribute("corso") Corso corso) {
-		this.corsoService.update(corso);
-		return "redirect:/corsi/" + corso.getId();
+	public String editCorso(@Valid @ModelAttribute("corso") Corso corso, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("istruttori", this.istruttoreService.findAll());
+			return "corsi/form.html";
+		}
+		try {
+			this.corsoService.update(corso);
+			return "redirect:/corsi";
+		}
+		catch(DuplicateCorsoException e) {
+			bindingResult.reject("corso.duplicate");
+			return "corsi/form";
+		}
 	}
 }

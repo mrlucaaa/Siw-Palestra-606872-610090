@@ -7,23 +7,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.model.Recensione;
+import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.RecensioneRepository;
 
 @Service
 @Transactional(readOnly = true)
 public class RecensioneService {
 	private RecensioneRepository recensioneRepository;
+	private CredentialsService credentialsService;
 
-	public RecensioneService(RecensioneRepository recensioneRepository) {
+	public RecensioneService(RecensioneRepository recensioneRepository, CredentialsService credentialsService) {
 		this.recensioneRepository = recensioneRepository;
+		this.credentialsService = credentialsService;
 	}
 	
 	
 	@Transactional
-	public void save(Corso corso, Recensione recensione) {
+	public void save(Corso corso, Recensione recensione, Utente utente) {
 		recensione.setDataOra(LocalDateTime.now());
 		recensione.setCorso(corso);
-		//agganciare utente
+		recensione.setUtente(utente);
 		recensioneRepository.save(recensione);
 	}
 }

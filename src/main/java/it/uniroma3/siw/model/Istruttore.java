@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 
@@ -15,9 +17,14 @@ public class Istruttore {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	@NotNull
 	private Long codiceTessera;
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cognome;
+	@NotBlank
 	private String specializzazione;
 	
 	@OneToMany(mappedBy = "istruttore")

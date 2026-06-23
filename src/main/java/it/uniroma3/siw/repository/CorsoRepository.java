@@ -1,5 +1,6 @@
 package it.uniroma3.siw.repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +13,7 @@ public interface CorsoRepository extends CrudRepository<Corso, Long>{
 	
 	@Query("SELECT c FROM Corso c LEFT JOIN FETCH c.istruttore LEFT JOIN FETCH c.prenotazioni WHERE c.id = :id")
 	Optional<Corso> findByIdWithIstruttoreAndPrenotazioni(@Param("id") Long id);
+	
+	public boolean existsByDataOraAndNome(LocalDateTime dataOra, String nome);
 
 }
