@@ -24,7 +24,7 @@ public class CorsoService {
 	}
 	
 	public Corso findByIdWithIstruttoreAndUtenti(Long id) {
-		return this.corsoRepository.findByIdWithIstruttoreAndUtenti(id).orElse(null);
+		return this.corsoRepository.findByIdWithIstruttoreAndPrenotazioni(id).orElse(null);
 	}
 	
 	@Transactional

@@ -3,10 +3,18 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+
+@Entity
 public class Utente {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String nome;
 	private String cognome;
@@ -17,7 +25,7 @@ public class Utente {
 	private Credentials credentials;
 	
 	@OneToMany(mappedBy = "utente")
-	private List<Prenotazione> prenotazione;
+	private List<Prenotazione> prenotazioni;
 	
 	@OneToMany(mappedBy = "utente")
 	private List<Recensione> recensione;
@@ -71,11 +79,11 @@ public class Utente {
 	}
 
 	public List<Prenotazione> getPrenotazione() {
-		return prenotazione;
+		return prenotazioni;
 	}
 
 	public void setPrenotazione(List<Prenotazione> prenotazione) {
-		this.prenotazione = prenotazione;
+		this.prenotazioni = prenotazioni;
 	}
 
 	public List<Recensione> getRecensione() {

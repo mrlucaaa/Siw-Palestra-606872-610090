@@ -3,11 +3,20 @@ package it.uniroma3.siw.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-
+@Entity
 public class Prenotazione {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private LocalDateTime dataCreazione;
+	@Enumerated(EnumType.STRING)
 	private StatoPrenotazione stato;
 	
 	@ManyToOne

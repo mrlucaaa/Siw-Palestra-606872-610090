@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.StatoPrenotazione;
+import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.PrenotazioneRepository;
 
 @Service
@@ -40,6 +41,10 @@ public class PrenotazioneService {
 		prenotazione.setDataCreazione(LocalDateTime.now());
 		prenotazione.setStato(StatoPrenotazione.ATTIVA);
 		this.prenotazioneRepository.save(prenotazione);
+	}
+	
+	public Iterable<Prenotazione> fingByUtente(Utente utente){
+		return this.prenotazioneRepository.findByUtente(utente);
 	}
 	
 }

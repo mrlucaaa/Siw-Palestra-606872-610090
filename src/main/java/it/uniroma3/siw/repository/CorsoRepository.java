@@ -10,7 +10,7 @@ import it.uniroma3.siw.model.Corso;
 
 public interface CorsoRepository extends CrudRepository<Corso, Long>{
 	
-	@Query("SELECT c FROM Corso c LEFT JOIN FETCH c.istruttori LEFT JOIN FETCH c.iscritti WHERE c.id = :id")
-	Optional<Corso> findByIdWithIstruttoreAndUtenti(@Param("id") Long id);
+	@Query("SELECT c FROM Corso c LEFT JOIN FETCH c.istruttore LEFT JOIN FETCH c.prenotazioni WHERE c.id = :id")
+	Optional<Corso> findByIdWithIstruttoreAndPrenotazioni(@Param("id") Long id);
 
 }
