@@ -1,11 +1,13 @@
 package it.uniroma3.siw.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.UtenteRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class UtenteService {
 	private UtenteRepository utenteRepository;
 

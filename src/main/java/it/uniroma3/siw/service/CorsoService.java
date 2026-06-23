@@ -7,6 +7,7 @@ import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.repository.CorsoRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class CorsoService {
 	private CorsoRepository corsoRepository;
 

@@ -11,6 +11,7 @@ import it.uniroma3.siw.model.StatoPrenotazione;
 import it.uniroma3.siw.repository.PrenotazioneRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class PrenotazioneService {
 	private PrenotazioneRepository prenotazioneRepository;
 

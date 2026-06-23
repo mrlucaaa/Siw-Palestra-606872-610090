@@ -10,6 +10,7 @@ import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.repository.RecensioneRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class RecensioneService {
 	private RecensioneRepository recensioneRepository;
 
