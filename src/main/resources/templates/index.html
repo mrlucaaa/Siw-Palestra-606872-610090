@@ -1,75 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIW Palestra - Home</title>
+    <title>Test CSS - Palestra</title>
+    <!-- Il tuo CSS viene caricato qui -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
 
-    <!-- NAVBAR -->
     <nav>
-        <div class="logo">
-            <a th:href="@{/}" style="color: var(--primary); text-decoration: none;">🏋️‍♂️ SIW Palestra</a>
-        </div>
-        <ul>
-            <li><a th:href="@{/}">Home</a></li>
-            <li><a th:href="@{/corsi}">Corsi</a></li>
-            <li><a th:href="@{/istruttori}">Istruttori</a></li>
-            
-            <li sec:authorize="isAnonymous()"><a th:href="@{/login}" class="btn">Login</a></li>
-            <li sec:authorize="isAnonymous()"><a th:href="@{/register}" class="btn">Registrati</a></li>
-            
-            <li sec:authorize="isAuthenticated()" style="display: flex; align-items: center;">
-                <span style="color: white; margin-right: 15px; font-weight: bold;">
-                    Ciao, <span sec:authentication="name" style="color: var(--primary);">Utente</span>
-                </span>
-            </li>
-            <li sec:authorize="isAuthenticated()">
-                <form th:action="@{/logout}" method="POST" style="padding:0; margin:0; border:none; background:none; max-width:none;">
-                    <button type="submit" class="btn btn-danger">Esci</button>
-                </form>
-            </li>
-        </ul>
+        <a th:href="@{/}">Home</a> |
+        <a th:href="@{/corsi}">Corsi</a> |
+        <a th:href="@{/istruttori}">Istruttori</a>
     </nav>
 
-    <!-- MAIN CONTENT -->
-    <div class="container" style="text-align: center; margin-top: 4rem;">
-        
-        <!-- HERO SECTION -->
-        <h1 style="font-size: 3.5rem; margin-bottom: 1rem; border: none;">Benvenuto in <span style="color: var(--primary);">SIW Palestra</span></h1>
-        <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 3rem auto;">
-            La tua piattaforma moderna per la gestione di corsi, prenotazioni e allenamenti. 
-            Unisciti a noi e inizia ad allenarti con i migliori istruttori per raggiungere i tuoi obiettivi.
-        </p>
-        
-        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 5rem;">
-            <a th:href="@{/corsi}" class="btn" style="font-size: 1.2rem; padding: 15px 30px;">Scopri i Corsi</a>
-            <a th:href="@{/istruttori}" class="btn btn-danger" style="font-size: 1.2rem; padding: 15px 30px;">I Nostri Istruttori</a>
+    <main class="container">
+        <h1>Titolo Principale (H1)</h1>
+        <p>Questo è un paragrafo di base per testare i font, i colori del testo e lo sfondo.</p>
+
+        <div style="margin: 20px 0;">
+            <a href="#" class="btn">Bottone Primario</a>
+            <a href="#" class="btn btn-danger">Bottone Secondario</a>
         </div>
 
-        <!-- FEATURES SECTION -->
-        <div style="text-align: left; max-width: 1000px; margin: 0 auto;">
-            <h2 style="margin-bottom: 2rem; border-bottom: 3px solid var(--primary); padding-bottom: 10px; display: inline-block;">Perché Sceglierci?</h2>
-            
-            <div class="corsi-grid">
-                <div class="card">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">🏋️ Attrezzatura Premium</h3>
-                    <p style="margin: 0;">Disponiamo di macchinari all'avanguardia per ogni tipo di allenamento, dal cardio al sollevamento pesi.</p>
-                </div>
-                <div class="card">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">👨‍🏫 Istruttori Certificati</h3>
-                    <p style="margin: 0;">I nostri personal trainer ti seguiranno passo dopo passo per farti raggiungere i risultati che desideri.</p>
-                </div>
-                <div class="card">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">📅 Massima Flessibilità</h3>
-                    <p style="margin: 0;">Prenota le tue lezioni facilmente online e gestisci i tuoi abbonamenti direttamente dal tuo profilo.</p>
-                </div>
+        <h2>Sottotitolo (H2)</h2>
+        <div class="corsi-grid">
+            <div class="card">
+                <h3>Elemento Card</h3>
+                <p>Usa questo div per testare bordi, sfondi e ombreggiature del componente card.</p>
             </div>
         </div>
 
-    </div>
+        <br>
+
+        <!-- Form di test -->
+        <form action="#" style="margin-top: 20px;">
+            <div class="form-group">
+                <label>Label di test</label>
+                <input type="text" placeholder="Input di test...">
+            </div>
+        </form>
+    </main>
 
 </body>
+
 </html>
