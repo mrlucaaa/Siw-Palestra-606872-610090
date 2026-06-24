@@ -1,49 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test CSS - Palestra</title>
-    <!-- Il tuo CSS viene caricato qui -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<head th:replace="~{fragments/base :: head('SIW Fitness Club - Home')}"></head>
 
 <body>
 
-    <nav>
-        <a th:href="@{/}">Home</a> |
-        <a th:href="@{/corsi}">Corsi</a> |
-        <a th:href="@{/istruttori}">Istruttori</a>
-    </nav>
+    <!-- NAVBAR -->
+    <div th:replace="~{fragments/base :: navbar}"></div>
 
-    <main class="container">
-        <h1>Titolo Principale (H1)</h1>
-        <p>Questo è un paragrafo di base per testare i font, i colori del testo e lo sfondo.</p>
-
-        <div style="margin: 20px 0;">
-            <a href="#" class="btn">Bottone Primario</a>
-            <a href="#" class="btn btn-danger">Bottone Secondario</a>
-        </div>
-
-        <h2>Sottotitolo (H2)</h2>
-        <div class="corsi-grid">
-            <div class="card">
-                <h3>Elemento Card</h3>
-                <p>Usa questo div per testare bordi, sfondi e ombreggiature del componente card.</p>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero__copy">
+            <span class="label">Eccellenza Sportiva</span>
+            <h1>Forgia il tuo <br><em>Fisico Ideale</em></h1>
+            <p>
+                L'ambiente perfetto per spingerti oltre i tuoi limiti.
+                Attrezzature premium e un team di professionisti dedicati al tuo successo.
+            </p>
+            <div class="hero__actions">
+                <a th:href="@{/register}" class="btn btn-red">Inizia Ora</a>
+                <a th:href="@{/corsi}" class="btn btn-ghost">I Nostri Corsi</a>
             </div>
         </div>
 
-        <br>
+        <div class="hero__img"
+            style="background-image: url('/images/hero_gym.png'); background-size: cover; background-position: center;">
+        </div>
+    </section>
 
-        <!-- Form di test -->
-        <form action="#" style="margin-top: 20px;">
-            <div class="form-group">
-                <label>Label di test</label>
-                <input type="text" placeholder="Input di test...">
+    <!-- CARDS SECTION -->
+    <section class="sec sec--dark">
+        <div class="wrap">
+            <span class="label">I NOSTRI VALORI</span>
+            <h2 style="margin-bottom: 3rem; color: var(--paper);">L'Esperienza <span
+                    style="color: var(--red);">SIW</span></h2>
+
+            <div class="cards">
+                
+                <div class="card">
+                    <div class="card__content">
+                        <span class="card__tag tag-red">Performance</span>
+                        <h3>Ottimizzazione</h3>
+                    </div>
+                    <p>Attrezzature all'avanguardia per massimizzare ogni singolo allenamento e mantenere un focus totale.</p>
+                    <span class="card__meta">01</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card__content">
+                        <span class="card__tag tag-gold">Community</span>
+                        <h3>Condivisione</h3>
+                    </div>
+                    <p>Entra in un gruppo di persone motivate che condividono la passione per la forza e la salute.</p>
+                    <span class="card__meta">02</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card__content">
+                        <span class="card__tag tag-grey">Innovazione</span>
+                        <h3>Evoluzione</h3>
+                    </div>
+                    <p>Programmi sempre aggiornati basati sulle più recenti evidenze scientifiche e biomeccaniche.</p>
+                    <span class="card__meta">03</span>
+                </div>
+
             </div>
-        </form>
-    </main>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="cta-fin">
+        <div class="wrap">
+            <h2>Pronto a iniziare?</h2>
+            <p>Non rimandare a domani quello che puoi sollevare oggi. Iscriviti ora e ottieni la prima scheda in
+                omaggio.</p>
+            <a th:href="@{/register}" class="btn btn-dark">Unisciti al Club</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div th:replace="~{fragments/base :: footer}"></div>
 
 </body>
 

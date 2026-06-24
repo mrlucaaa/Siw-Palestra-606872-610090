@@ -57,44 +57,37 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: .5rem;
 }
 
-/* numero decorativo in background — la firma */
-.bg-num {
-  position: absolute;
-  bottom: -.1em; left: -.02em;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: clamp(10rem, 22vw, 20rem);
-  color: rgba(21,20,16,.04);
-  pointer-events: none;
-  user-select: none;
-  line-height: 1;
-}
-.sec--dark .bg-num { color: rgba(247,244,239,.03); }
+/* numeri in background rimossi per semplicità */
 
 /* ── nav ── */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 99;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 2rem;
-  background: var(--paper);
-  border-bottom: 1.5px solid var(--ink);
+  padding: 1.2rem 3rem;
+  background: rgba(28, 26, 23, 0.95); /* var(--dark) con leggera trasparenza */
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: padding 0.3s ease;
 }
 
 .nav__logo {
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900; font-size: 1.6rem;
-  letter-spacing: .04em; text-transform: uppercase;
+  font-weight: 900; font-size: 1.7rem;
+  letter-spacing: .05em; text-transform: uppercase;
+  color: var(--paper);
 }
 .nav__logo span { color: var(--red); }
 
-.nav__links { display: flex; gap: 2rem; list-style: none; }
+.nav__links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
 .nav__links a {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 600; font-size: 1rem;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--grey); transition: color .15s;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(247, 244, 239, 0.7); /* colore chiaro ma attenuato */
+  transition: color .2s;
 }
-.nav__links a:hover { color: var(--red); }
+.nav__links a:hover { color: var(--paper); }
+.nav__links .btn { padding: .6rem 1.4rem; color: #fff; }
 
 /* ── bottoni ── */
 .btn {
@@ -126,22 +119,13 @@ a { text-decoration: none; color: inherit; }
 .hero {
   min-height: 100svh;
   display: grid; grid-template-columns: 1fr 1fr;
-  align-items: end;
+  align-items: center;
   padding-top: 72px;
   background: var(--dark);
   overflow: hidden;
   position: relative;
 }
-.hero::before {
-  content: '01';
-  position: absolute; bottom: -.05em; right: -.02em;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: clamp(18rem, 38vw, 38rem);
-  color: rgba(255,255,255,.025);
-  pointer-events: none; user-select: none;
-  line-height: 1;
-}
+/* hero background number rimosso */
 
 .hero__copy { padding: 5rem 2rem 5rem 4rem; }
 .hero__copy h1 { color: var(--paper); margin-bottom: 1.5rem; }
@@ -189,44 +173,52 @@ a { text-decoration: none; color: inherit; }
 
 /* ── cards corsi ── */
 .cards {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1.5px;
-  background: rgba(255,255,255,.06);
-  border: 1.5px solid rgba(255,255,255,.06);
+  display: flex;
+  flex-direction: column;
 }
 .card {
-  background: #2A2723;
-  padding: 2rem 2rem 3rem;
+  background: transparent;
+  padding: 3.5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.05);
   position: relative; overflow: hidden;
-  transition: background .2s;
+  transition: all .3s ease;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
 }
-.card:hover { background: #242019; }
-.card::after {
-  content: ''; position: absolute;
-  bottom: 0; left: 0; right: 100%;
-  height: 3px; background: var(--red);
-  transition: right .25s ease;
-}
-.card:hover::after { right: 0; }
+.card:first-child { border-top: 1px solid rgba(255,255,255,.05); }
+.card:hover { background: rgba(255,255,255,.02); padding-left: 2rem; padding-right: 2rem; }
+.card::after { display: none; }
 
 .card__tag {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .75rem; font-weight: 600; letter-spacing: .15em;
   text-transform: uppercase;
   display: inline-block;
-  padding: .2rem .6rem; border-radius: 999px;
-  margin-bottom: .75rem;
+  padding: .3rem .8rem; border-radius: 999px;
+  text-align: center;
+  width: max-content;
+  flex-shrink: 0;
 }
-.tag-red  { background: rgba(192,52,29,.2);  color: #E07060; }
-.tag-gold { background: rgba(212,160,23,.2); color: var(--gold); }
-.tag-grey { background: rgba(138,133,128,.15); color: var(--grey); }
+.tag-red  { border: 1px solid rgba(192,52,29,.5); color: #E07060; }
+.tag-gold { border: 1px solid rgba(212,160,23,.5); color: var(--gold); }
+.tag-grey { border: 1px solid rgba(138,133,128,.5); color: var(--grey); }
 
-.card h3 { color: var(--paper); font-size: 1.6rem; margin-bottom: .6rem; }
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-shrink: 0;
+  width: 250px;
+}
+.card__content h3 { color: var(--paper); font-size: 2.2rem; margin: 0; line-height: 1; }
+.card p { flex: 1; margin: 0; font-size: 1.1rem; line-height: 1.6; color: rgba(247,244,239,.5); }
+
 .card__meta {
-  position: absolute; bottom: 1rem; right: 1rem;
+  position: static;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(247,244,239,.15);
+  font-size: 4rem; font-weight: 900; line-height: 1;
+  color: var(--red);
 }
 
 /* ── orari ── */
@@ -334,13 +326,7 @@ a { text-decoration: none; color: inherit; }
   padding-block: 7rem;
   position: relative; overflow: hidden;
 }
-.cta-fin::before {
-  content: 'START';
-  position: absolute; bottom: -.05em; right: -.01em;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900; font-size: clamp(8rem,18vw,16rem);
-  color: rgba(0,0,0,.07); pointer-events: none; user-select: none;
-}
+/* cta background text rimosso */
 .cta-fin h2 { color: #fff; }
 .cta-fin p  { color: rgba(255,255,255,.65); margin-block: 1rem 2rem; max-width: 45ch; }
 
@@ -410,6 +396,10 @@ a { text-decoration: none; color: inherit; }
   .hero__img            { min-height: 280px; order: -1; }
   .hero__copy           { padding: 2rem; }
   .cards, .trainers, .pricing { grid-template-columns: 1fr; }
+  .card                 { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 2.5rem 1rem; }
+  .card:hover           { padding-left: 1rem; padding-right: 1rem; }
+  .card__content        { width: auto; }
+  .card__meta           { display: none; }
   .plan                 { border-right: none; border-bottom: 1.5px solid var(--ink); }
   .plan:last-child      { border-bottom: none; }
   .stats__row           { grid-template-columns: repeat(2,1fr); }
@@ -424,3 +414,5 @@ a { text-decoration: none; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
 }
+
+

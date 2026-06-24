@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">SIW Fitness</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav th:fragment="navbar" class="nav">
+        <div class="nav__logo">
+            <a th:href="@{/}">SIW <span>FITNESS</span></a>
+        </div>
+        <ul class="nav__links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/corsi}">Corsi</a></li>
+            <li><a th:href="@{/istruttori}">Team</a></li>
+            <li><a th:href="@{/login}" class="btn btn-red">Accedi</a></li>
+        </ul>
+    </nav>
+
+    <!-- FOOTER -->
+    <footer th:fragment="footer" class="footer">
+        <div class="wrap">
+            <div class="footer__grid">
+                <div>
+                    <div class="footer__logo">SIW <span>FITNESS</span></div>
+                    <p class="footer__tagline">La palestra d'eccellenza per gli studenti universitari e non solo. Costruiamo forza, salute e determinazione ogni singolo giorno.</p>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Link Rapidi</h4>
+                    <ul class="footer__links">
+                        <li><a th:href="@{/corsi}">Tutti i Corsi</a></li>
+                        <li><a th:href="@{/istruttori}">I Nostri Istruttori</a></li>
+                        <li><a th:href="@{/login}">Area Riservata</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Contattaci</h4>
+                    <ul class="footer__links" style="color: rgba(247,244,239,.35); font-size: .875rem;">
+                        <li style="margin-bottom: 5px;">📍 Via del Politecnico 1, Roma</li>
+                        <li style="margin-bottom: 5px;">📞 +39 06 12345678</li>
+                        <li>✉️ info@siwfitness.it</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Social</h4>
+                    <ul class="footer__links">
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span>&copy; 2026 SIW Fitness Club.</span>
+                <span>Progetto Universitario. Tutti i diritti riservati.</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
