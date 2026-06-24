@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.exception.DuplicateCorsoException;
 import it.uniroma3.siw.model.Corso;
+import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.service.CorsoService;
 import it.uniroma3.siw.service.IstruttoreService;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class CorsoController {
 	@GetMapping("/corsi/{id}")
 	public String show(@PathVariable("id") Long id, Model model){
 		model.addAttribute("corso", this.corsoService.findByIdWithIstruttoreAndUtenti(id));
-		model.addAttribute("recensione", new it.uniroma3.siw.model.Recensione());
+		model.addAttribute("recensione", new Recensione());
 		return "corsi/show.html";
 	}
 	

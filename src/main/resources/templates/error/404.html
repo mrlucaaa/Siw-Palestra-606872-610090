@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/base :: head('Pagina non trovata - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+        <div class="wrap">
+            <h1 style="font-size: 8rem; color: var(--gold); margin-bottom: 1rem; line-height: 1;">404</h1>
+            <h2 style="font-size: 3rem; margin-bottom: 2rem;">Pagina non trovata</h2>
+            
+            <div th:if="${messaggioErrore}" style="background-color: rgba(255, 60, 60, 0.1); border: 1px solid var(--red); color: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <span th:text="#{__${messaggioErrore}__}" style="font-size: 1.2rem;"></span>
+            </div>
+            <div th:unless="${messaggioErrore}">
+                <p style="color: rgba(247,244,239, 0.7); margin-bottom: 2rem; font-size: 1.2rem;">La risorsa che stai cercando non esiste o è stata spostata.</p>
+            </div>
+            
+            <a th:href="@{/}" class="btn btn-red" style="font-size: 1.2rem; padding: 1rem 3rem;">Torna alla Home</a>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

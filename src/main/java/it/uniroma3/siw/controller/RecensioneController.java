@@ -15,6 +15,7 @@ import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.service.CorsoService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.RecensioneService;
+import it.uniroma3.siw.exception.RecensioneDuplicataException;
 import jakarta.validation.Valid;
 
 @Controller
@@ -36,10 +37,16 @@ public class RecensioneController {
 			return "corsi/show.html";
 		}
 		Corso corso = corsoService.findById(idCorso);
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = this.credentialsService.findCredentialsByUsername(userDetails.getUsername());
-		this.recensioneService.save(corso, recensione, credentials.getUtente());
-		return "redirect:/corsi/" + idCorso;
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Credentials credentials = this.credentialsService.findCredentialsByUsername(username);
+		try {
+			this.recensioneService.save(corso, recensione, credentials.getUtente());
+			return "redirect:/corsi/" + idCorso;
+		} catch(RecensioneDuplicataException e) {
+			bindingResult.reject("recensione.duplicate");
+			model.addAttribute("corso", corsoService.findByIdWithIstruttoreAndUtenti(idCorso));
+			return "corsi/show.html";
+		}
 	}
 	
 }

@@ -11,6 +11,8 @@ import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.StatoPrenotazione;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.PrenotazioneRepository;
+import it.uniroma3.siw.exception.PrenotazioneDuplicataException;
+import it.uniroma3.siw.exception.CorsoAlCompletoException;
 
 @Service
 @Transactional(readOnly = true)
@@ -42,7 +44,16 @@ public class PrenotazioneService {
 	}
 	
 	@Transactional
-	public void save(Corso corso, Utente utente) {
+	public void save(Corso corso, Utente utente) throws CorsoAlCompletoException, PrenotazioneDuplicataException {
+		if (this.prenotazioneRepository.existsByUtenteAndCorso(utente, corso)) {
+			throw new PrenotazioneDuplicataException();
+		}
+		
+		long prenotazioniAttive = this.prenotazioneRepository.countByCorsoAndStato(corso, StatoPrenotazione.ATTIVA);
+		if (corso.getCapienzaMax() != null && prenotazioniAttive >= corso.getCapienzaMax()) {
+			throw new CorsoAlCompletoException();
+		}
+		
 		Prenotazione prenotazione = new Prenotazione();
 		prenotazione.setCorso(corso);
 		prenotazione.setDataCreazione(LocalDateTime.now());

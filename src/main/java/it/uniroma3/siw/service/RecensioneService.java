@@ -9,6 +9,7 @@ import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.RecensioneRepository;
+import it.uniroma3.siw.exception.RecensioneDuplicataException;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,7 +24,10 @@ public class RecensioneService {
 	
 	
 	@Transactional
-	public void save(Corso corso, Recensione recensione, Utente utente) {
+	public void save(Corso corso, Recensione recensione, Utente utente) throws RecensioneDuplicataException {
+		if (this.recensioneRepository.existsByUtenteAndCorso(utente, corso)) {
+			throw new RecensioneDuplicataException();
+		}
 		recensione.setDataOra(LocalDateTime.now());
 		recensione.setCorso(corso);
 		recensione.setUtente(utente);

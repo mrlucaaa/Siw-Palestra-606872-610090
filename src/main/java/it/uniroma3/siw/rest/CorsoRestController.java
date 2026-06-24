@@ -14,8 +14,8 @@ import it.uniroma3.siw.dto.CorsoDTO;
 import it.uniroma3.siw.exception.CorsoNotFoundException;
 import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.service.CorsoService;
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/corsi")
 public class CorsoRestController {
 

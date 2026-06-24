@@ -29,6 +29,9 @@
             </div>
             
             <div style="margin-top: 2rem;">
+                <div th:if="${messaggioErrore}" style="background-color: rgba(255, 60, 60, 0.1); border: 1px solid var(--red); color: white; padding: 1rem; border-radius: 4px; margin-bottom: 2rem;">
+                    <span th:text="#{__${messaggioErrore}__}"></span>
+                </div>
                 <div sec:authorize="isAuthenticated()">
                     <form th:action="@{/utente/corsi/{idCorso}/prenotazioni(idCorso=${corso.id})}" method="post">
                         <button type="submit" class="btn btn-red" style="padding: 1rem 3rem; font-size: 1.2rem;">Iscriviti al Corso</button>

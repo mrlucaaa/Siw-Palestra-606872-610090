@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Istruttore;
 import it.uniroma3.siw.repository.IstruttoreRepository;
+import it.uniroma3.siw.exception.IstruttoreNotFoundException;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,5 +18,13 @@ public class IstruttoreService {
 	
 	public Iterable<Istruttore> findAll(){
 		return this.istruttoreRepository.findAll();
+	}
+	
+	public Istruttore findById(Long id) throws IstruttoreNotFoundException {
+		Istruttore istruttore = istruttoreRepository.findById(id).orElse(null);
+		if(istruttore == null) {
+			throw new IstruttoreNotFoundException();
+		}
+		return istruttore;
 	}
 }

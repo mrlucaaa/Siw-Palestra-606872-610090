@@ -4,23 +4,25 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import it.uniroma3.siw.service.CustomOAuth2UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 	
 	private final DataSource dataSource;
+	private final CustomOAuth2UserService customOAuth2UserService;
 	
-	public SecurityConfiguration(DataSource dataSource) {
+	public SecurityConfiguration(DataSource dataSource, CustomOAuth2UserService customOAuth2UserService) {
 		this.dataSource=dataSource;
+		this.customOAuth2UserService = customOAuth2UserService;
 	}
 	
 	@Bean
@@ -48,6 +50,11 @@ public class SecurityConfiguration {
 			form.loginPage("/login").permitAll();
 			form.defaultSuccessUrl("/success", true);
 			form.failureUrl("/login?error=true");
+		});
+		httpSecurity.oauth2Login(oauth2 -> {
+			oauth2.loginPage("/login");
+			oauth2.defaultSuccessUrl("/success", true);
+			oauth2.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService));
 		});
 		httpSecurity.logout(logout -> {
 			logout.logoutUrl("/logout");

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class GlobalController {
 	
 	@ModelAttribute("userDetails")
-	public UserDetails getUser() {
-		UserDetails user = null;
+	public Object getUser() {
+		Object user = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(!(authentication instanceof AnonymousAuthenticationToken)) {
-			user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			user = authentication.getPrincipal();
 		}
 		return user;
 	}
