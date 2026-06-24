@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import it.uniroma3.siw.dto.CorsoDTO;
 import it.uniroma3.siw.exception.CorsoNotFoundException;
 import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.service.CorsoService;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/corsi")
 public class CorsoRestController {
