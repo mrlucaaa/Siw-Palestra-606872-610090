@@ -46,7 +46,7 @@ public class Credentials {
 		return username;
 	}
 	public void setUsername(String username) {
-		username = username;
+		this.username = username;
 	}
 	public RuoloUtente getRuolo() {
 		return ruolo;
@@ -58,6 +58,7 @@ public class Credentials {
 	public Utente getUtente() {
 		return utente;
 	}
+	
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}

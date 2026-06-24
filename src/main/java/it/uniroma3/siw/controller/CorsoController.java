@@ -33,6 +33,7 @@ public class CorsoController {
 	@GetMapping("/corsi/{id}")
 	public String show(@PathVariable("id") Long id, Model model){
 		model.addAttribute("corso", this.corsoService.findByIdWithIstruttoreAndUtenti(id));
+		model.addAttribute("recensione", new it.uniroma3.siw.model.Recensione());
 		return "corsi/show.html";
 	}
 	
@@ -72,6 +73,12 @@ public class CorsoController {
 		model.addAttribute("corso", this.corsoService.findById(id));
 		model.addAttribute("istruttori", this.istruttoreService.findAll());
 		return "corsi/edit";
+	}
+	
+	@GetMapping("/istruttore/corsi/{id}/iscritti")
+	public String showIscrittiAlCorso(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("corso", this.corsoService.findByIdWithIstruttoreAndUtenti(id));
+		return "corsi/iscritti.html";
 	}
 	
 	@PostMapping("/istruttore/corsi/edit/{id}")

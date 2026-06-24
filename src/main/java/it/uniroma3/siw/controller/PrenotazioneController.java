@@ -24,6 +24,7 @@ public class PrenotazioneController {
 	public PrenotazioneController(PrenotazioneService prenotazioneService, CorsoService corsoService, CredentialsService credentialsService) {
 		this.prenotazioneService = prenotazioneService;
 		this.corsoService = corsoService;
+		this.credentialsService = credentialsService;
 	}
 	
 	@GetMapping("/utente/prenotazioni")
@@ -44,7 +45,7 @@ public class PrenotazioneController {
 	public String disdiciPrenotazione(@PathVariable("id") Long id) {
 		Prenotazione prenotazione = this.prenotazioneService.findById(id);
 		this.prenotazioneService.disdiciPrenotazione(prenotazione);
-		return "redirect:/prenotazioni";
+		return "redirect:/utente/prenotazioni";
 	}
 	
 	@PostMapping("/utente/corsi/{idCorso}/prenotazioni")

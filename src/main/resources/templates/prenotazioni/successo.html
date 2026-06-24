@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Prenotazione Confermata - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 5rem;">
+        <div class="wrap" style="width: 100%; max-width: 600px; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 8px; text-align: center;">
+            <div style="font-size: 4rem; color: #51cf66; margin-bottom: 1rem;">✓</div>
+            <h2 style="margin-bottom: 1rem; color: #51cf66;">Prenotazione Confermata!</h2>
+            
+            <p style="font-size: 1.2rem; color: var(--paper); margin-bottom: 2rem;">
+                La tua prenotazione per il corso è andata a buon fine.
+                Ti aspettiamo in palestra!
+            </p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a th:href="@{/utente/prenotazioni}" class="btn btn-ghost" style="border: 1px solid var(--gold); color: var(--gold);">Le mie Prenotazioni</a>
+                <a th:href="@{/corsi}" class="btn btn-red">Torna ai Corsi</a>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

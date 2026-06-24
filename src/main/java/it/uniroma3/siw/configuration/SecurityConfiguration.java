@@ -33,7 +33,7 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return org.springframework.security.crypto.factory.PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 	
 	@Bean

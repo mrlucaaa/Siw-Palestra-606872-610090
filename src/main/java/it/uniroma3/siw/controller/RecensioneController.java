@@ -32,7 +32,7 @@ public class RecensioneController {
 	@PostMapping("/utente/corsi/{idCorso}/recensioni")
 	public String newRecensione(@PathVariable("idCorso") Long idCorso, @Valid @ModelAttribute("recensione") Recensione recensione, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("corsi", corsoService.findById(idCorso));
+			model.addAttribute("corso", corsoService.findByIdWithIstruttoreAndUtenti(idCorso));
 			return "corsi/show.html";
 		}
 		Corso corso = corsoService.findById(idCorso);

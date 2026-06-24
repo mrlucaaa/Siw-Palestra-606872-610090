@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Iscritti al Corso - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh;">
+        <div class="wrap">
+            <h2 class="sec__title" style="color: var(--gold); margin-bottom: 0.5rem;" th:text="${'Iscritti: ' + corso.nome}">Iscritti al Corso</h2>
+            <p style="color: rgba(247,244,239, 0.7); margin-bottom: 2rem;">
+                <a th:href="@{/corsi/{id}(id=${corso.id})}" style="color: var(--paper); text-decoration: underline;">&larr; Torna ai dettagli del corso</a>
+            </p>
+
+            <div th:if="${corso.prenotazioni == null or corso.prenotazioni.isEmpty()}">
+                <p style="color: var(--paper); font-size: 1.2rem;">Non ci sono iscritti a questo corso al momento.</p>
+            </div>
+
+            <div th:unless="${corso.prenotazioni == null or corso.prenotazioni.isEmpty()}" style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden;">
+                    <thead>
+                        <tr style="background: rgba(255,255,255,0.1); text-align: left; color: var(--gold);">
+                            <th style="padding: 1rem;">Data Prenotazione</th>
+                            <th style="padding: 1rem;">Stato</th>
+                            <th style="padding: 1rem;">Nome</th>
+                            <th style="padding: 1rem;">Cognome</th>
+                            <th style="padding: 1rem;">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="prenotazione : ${corso.prenotazioni}" style="border-top: 1px solid rgba(255,255,255,0.1); color: rgba(247,244,239, 0.9);">
+                            <td style="padding: 1rem;" th:text="${#temporals.format(prenotazione.dataCreazione, 'dd/MM/yyyy HH:mm')}">Data</td>
+                            <td style="padding: 1rem;">
+                                <span th:text="${prenotazione.stato}" 
+                                      th:style="${prenotazione.stato.name() == 'ATTIVA'} ? 'color: #51cf66; font-weight: bold;' : 'color: #fa5252;'">
+                                      ATTIVA
+                                </span>
+                            </td>
+                            <td style="padding: 1rem;" th:text="${prenotazione.utente.nome}">Nome</td>
+                            <td style="padding: 1rem;" th:text="${prenotazione.utente.cognome}">Cognome</td>
+                            <td style="padding: 1rem;" th:text="${prenotazione.utente.email}">Email</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

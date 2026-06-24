@@ -23,6 +23,7 @@ public class UtenteService {
 		return this.utenteRepository.findById(id).orElse(null);
 	}
 	
+	@Transactional
 	public void saveUtente(Utente utente) {
 		this.utenteRepository.save(utente);
 	}

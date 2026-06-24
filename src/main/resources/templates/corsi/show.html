@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/base :: head(${corso.nome} + ' - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh;">
+        <div class="wrap">
+            <h2 th:text="${corso.nome}" style="margin-bottom: 1rem;">Nome Corso</h2>
+            
+            <div style="margin-bottom: 2rem;">
+                <a th:href="@{/corsi}" class="btn btn-ghost">Torna ai Corsi</a>
+                <!-- Azioni visibili a Istruttore o ADMIN -->
+                <span sec:authorize="hasAnyAuthority('ADMIN', 'ISTRUTTORE')" style="margin-left: 1rem;">
+                    <a th:href="@{'/istruttore/corsi/' + ${corso.id} + '/iscritti'}" class="btn btn-ghost" style="border-color: var(--gold); color: var(--gold); margin-right: 0.5rem;">Vedi Iscritti</a>
+                    <a th:href="@{'/istruttore/corsi/edit/' + ${corso.id}}" class="btn btn-red">Modifica</a>
+                </span>
+            </div>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Dettagli Corso</h3>
+                <p style="margin-bottom: .5rem; color: rgba(247,244,239, 0.9);"><strong>Descrizione:</strong> <span th:text="${corso.descrizione}">Descrizione</span></p>
+                <p style="margin-bottom: .5rem; color: rgba(247,244,239, 0.9);"><strong>Data e Ora:</strong> <span th:text="${#temporals.format(corso.dataOra, 'dd/MM/yyyy HH:mm')}">Data</span></p>
+                <p style="margin-bottom: .5rem; color: rgba(247,244,239, 0.9);"><strong>Capienza Massima:</strong> <span th:text="${corso.capienzaMax}">0</span></p>
+                <p style="margin-bottom: .5rem; color: rgba(247,244,239, 0.9);"><strong>Istruttore:</strong> 
+                    <span th:if="${corso.istruttore != null}" th:text="${corso.istruttore.nome + ' ' + corso.istruttore.cognome}">Istruttore</span>
+                    <span th:unless="${corso.istruttore != null}">Non assegnato</span>
+                </p>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <div sec:authorize="isAuthenticated()">
+                    <form th:action="@{/utente/corsi/{idCorso}/prenotazioni(idCorso=${corso.id})}" method="post">
+                        <button type="submit" class="btn btn-red" style="padding: 1rem 3rem; font-size: 1.2rem;">Iscriviti al Corso</button>
+                    </form>
+                </div>
+                <div sec:authorize="!isAuthenticated()">
+                    <p style="color: var(--paper); margin-bottom: 1rem;">Per poterti iscrivere a questo corso devi essere registrato.</p>
+                    <a th:href="@{/login}" class="btn btn-red">Accedi per Iscriverti</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- SEZIONE RECENSIONI -->
+        <div class="wrap" style="margin-top: 4rem;">
+            <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 1.8rem;">Recensioni</h3>
+            
+            <div th:if="${corso.recensioni == null or corso.recensioni.isEmpty()}">
+                <p style="color: var(--paper); font-style: italic;">Nessuna recensione ancora presente per questo corso.</p>
+            </div>
+            
+            <div th:unless="${corso.recensioni == null or corso.recensioni.isEmpty()}" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem;">
+                <div th:each="rec : ${corso.recensioni}" class="card" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <strong style="color: var(--gold);" th:text="${rec.utente.nome + ' ' + rec.utente.cognome}">Nome Utente</strong>
+                        <span style="color: #fcc419;" th:text="${'★'.repeat(rec.numeroStelle)} + ${'☆'.repeat(5 - rec.numeroStelle)}">★★★★★</span>
+                    </div>
+                    <p style="color: rgba(247,244,239, 0.9); margin-bottom: 0.5rem;" th:text="${rec.testo}">Testo della recensione</p>
+                    <small style="color: rgba(247,244,239, 0.5);" th:text="${#temporals.format(rec.dataOra, 'dd/MM/yyyy HH:mm')}">01/01/2026</small>
+                </div>
+            </div>
+            
+            <!-- FORM INSERIMENTO RECENSIONE (Solo per utenti loggati) -->
+            <div sec:authorize="isAuthenticated()" style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-top: 2rem;">
+                <h4 style="color: var(--paper); margin-bottom: 1rem;">Lascia una recensione</h4>
+                <form th:action="@{/utente/corsi/{idCorso}/recensioni(idCorso=${corso.id})}" th:object="${recensione}" method="post">
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="numeroStelle" style="color: var(--paper);">Valutazione (da 1 a 5)</label>
+                        <select id="numeroStelle" th:field="*{numeroStelle}" required style="width: 100%; padding: 0.75rem; border-radius: 4px; background: rgba(255,255,255,0.1); border: none; color: white; margin-top: 0.5rem;">
+                            <option value="5" style="color: black;">5 Stelle - Eccellente</option>
+                            <option value="4" style="color: black;">4 Stelle - Molto buono</option>
+                            <option value="3" style="color: black;">3 Stelle - Buono</option>
+                            <option value="2" style="color: black;">2 Stelle - Sufficiente</option>
+                            <option value="1" style="color: black;">1 Stella - Insoddisfacente</option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('numeroStelle')}" th:errors="*{numeroStelle}" style="color: var(--red);">Errore</span>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="testo" style="color: var(--paper);">La tua recensione</label>
+                        <textarea id="testo" th:field="*{testo}" required rows="4" style="width: 100%; padding: 0.75rem; border-radius: 4px; background: rgba(255,255,255,0.1); border: none; color: white; margin-top: 0.5rem;"></textarea>
+                        <span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" style="color: var(--red);">Errore</span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-red">Pubblica Recensione</button>
+                </form>
+            </div>
+            
+            <div sec:authorize="!isAuthenticated()" style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.05); text-align: center; border-radius: 8px;">
+                <p style="color: var(--paper);">Vuoi lasciare una recensione? <a th:href="@{/login}" style="color: var(--gold); text-decoration: underline;">Accedi al tuo account</a>.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

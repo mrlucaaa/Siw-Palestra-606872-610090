@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Login - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+        <div class="wrap" style="width: 100%; max-width: 500px; padding: 2rem;">
+            <h2 style="margin-bottom: 2rem; text-align: center;">Accedi</h2>
+            
+            <form th:action="@{/login}" method="post" style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px;">
+                
+                <div th:if="${param.error}" style="color: #ff6b6b; margin-bottom: 1rem; text-align: center; font-weight: bold;">
+                    Credenziali non valide, riprova.
+                </div>
+                <div th:if="${param.logout}" style="color: #51cf66; margin-bottom: 1rem; text-align: center; font-weight: bold;">
+                    Disconnessione effettuata con successo.
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="username" style="display: block; margin-bottom: .5rem; color: var(--paper);">Username</label>
+                    <input type="text" id="username" name="username" required style="width: 100%; padding: .75rem; border: none; border-radius: 4px;" />
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="password" style="display: block; margin-bottom: .5rem; color: var(--paper);">Password</label>
+                    <input type="password" id="password" name="password" required style="width: 100%; padding: .75rem; border: none; border-radius: 4px;" />
+                </div>
+                
+                <button type="submit" class="btn btn-red" style="width: 100%; justify-content: center;">Login</button>
+                
+                <p style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem;">
+                    Non hai un account? <a th:href="@{/register}" style="color: var(--red); font-weight: bold;">Registrati ora</a>
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

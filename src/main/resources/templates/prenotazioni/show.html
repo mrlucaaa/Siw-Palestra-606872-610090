@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Dettaglio Prenotazione - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh;">
+        <div class="wrap">
+            <div style="max-width: 600px; margin: 0 auto; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px;">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="color: var(--gold);">Dettaglio Prenotazione</h2>
+                    <span th:text="${prenotazione.stato}" 
+                          th:style="${prenotazione.stato.name() == 'ATTIVA'} ? 'background: rgba(81, 207, 102, 0.2); color: #51cf66; padding: 0.25rem 0.75rem; border-radius: 4px; font-weight: bold;' : 'background: rgba(250, 82, 82, 0.2); color: #fa5252; padding: 0.25rem 0.75rem; border-radius: 4px; font-weight: bold;'">
+                        ATTIVA
+                    </span>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--paper); margin-bottom: 0.5rem;" th:text="${prenotazione.corso.nome}">Corso Yoga</h3>
+                    <p style="color: rgba(247,244,239, 0.8); margin-bottom: 0.5rem;" th:text="${prenotazione.corso.descrizione}">Descrizione del corso</p>
+                    <p style="color: rgba(247,244,239, 0.9); margin-bottom: 0.5rem;">
+                        <strong>Istruttore:</strong> <span th:text="${prenotazione.corso.istruttore.nome} + ' ' + ${prenotazione.corso.istruttore.cognome}">Nome</span>
+                    </p>
+                    <p style="color: rgba(247,244,239, 0.9); margin-bottom: 0.5rem;">
+                        <strong>Data e Ora:</strong> <span th:text="${#temporals.format(prenotazione.corso.dataOra, 'dd/MM/yyyy HH:mm')}">Data</span>
+                    </p>
+                    <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;">
+                    <p style="color: rgba(247,244,239, 0.7); font-size: 0.9rem;">
+                        Prenotazione effettuata il: <span th:text="${#temporals.format(prenotazione.dataCreazione, 'dd/MM/yyyy HH:mm')}">Data</span>
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <a th:href="@{/utente/prenotazioni}" class="btn btn-ghost" style="border: 1px solid var(--paper); color: var(--paper);">Torna all'Elenco</a>
+                    
+                    <form th:if="${prenotazione.stato.name() == 'ATTIVA'}" 
+                          th:action="@{/utente/prenotazioni/{id}(id=${prenotazione.id})}" 
+                          method="post" style="margin: 0;">
+                        <button type="submit" class="btn btn-red" onclick="return confirm('Sei sicuro di voler disdire questa prenotazione?');">
+                            Disdici Prenotazione
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

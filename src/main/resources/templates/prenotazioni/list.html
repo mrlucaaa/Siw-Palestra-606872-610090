@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Le mie Prenotazioni - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh;">
+        <div class="wrap">
+            <h2 class="sec__title" style="color: var(--gold); margin-bottom: 2rem;">Le Mie Prenotazioni</h2>
+
+            <div th:if="${prenotazioni == null or prenotazioni.isEmpty()}">
+                <p style="color: var(--paper); font-size: 1.2rem;">Non hai ancora effettuato nessuna prenotazione.</p>
+                <a th:href="@{/corsi}" class="btn btn-red" style="margin-top: 1rem;">Scopri i Corsi</a>
+            </div>
+
+            <div th:unless="${prenotazioni == null or prenotazioni.isEmpty()}" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div th:each="prenotazione : ${prenotazioni}" class="card" style="background: rgba(255,255,255,0.05); padding: 1.5rem 2rem; border-radius: 8px; border-left: 4px solid var(--red); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 100%;">
+                    
+                    <div style="flex: 1 1 300px; margin-bottom: 1rem;">
+                        <h3 style="color: var(--gold); margin-bottom: 0.5rem; font-size: 1.5rem;" th:text="${prenotazione.corso.nome}">Nome Corso</h3>
+                        <p style="color: rgba(247,244,239, 0.7); font-size: 0.95rem;">
+                            Prenotato il: <span th:text="${#temporals.format(prenotazione.dataCreazione, 'dd/MM/yyyy HH:mm')}">01/01/2026</span>
+                        </p>
+                    </div>
+
+                    <div style="flex: 1 1 200px; margin-bottom: 1rem;">
+                        <p style="color: rgba(247,244,239, 0.9); margin-bottom: 0.25rem;">
+                            <strong>Data Corso:</strong> <span th:text="${#temporals.format(prenotazione.corso.dataOra, 'dd/MM/yyyy HH:mm')}">10/10/2026 18:00</span>
+                        </p>
+                        <p style="color: rgba(247,244,239, 0.9);">
+                            <strong>Stato:</strong> 
+                            <span th:text="${prenotazione.stato}" 
+                                  th:style="${prenotazione.stato.name() == 'ATTIVA'} ? 'color: #51cf66; font-weight: bold;' : 'color: #fa5252; font-weight: bold;'">
+                                  ATTIVA
+                            </span>
+                        </p>
+                    </div>
+
+                    <div style="flex: 0 0 auto;">
+                        <a th:href="@{/utente/prenotazioni/{id}(id=${prenotazione.id})}" class="btn btn-ghost" style="border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 1.5rem; white-space: nowrap;">Dettagli</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

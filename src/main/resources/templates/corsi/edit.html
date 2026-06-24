@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Modifica Corso - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh;">
+        <div class="wrap">
+            <h2 style="margin-bottom: 2rem;">Modifica Corso</h2>
+            
+            <form th:action="@{'/istruttore/corsi/edit/' + ${corso.id}}" th:object="${corso}" method="post" style="max-width: 600px;">
+                
+                <input type="hidden" th:field="*{id}" />
+                
+                <div th:if="${#fields.hasGlobalErrors()}" style="color: red; margin-bottom: 1rem;">
+                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label for="nome" style="display: block; margin-bottom: .5rem; font-weight: bold;">Nome Corso:</label>
+                    <input type="text" id="nome" th:field="*{nome}" required style="width: 100%; padding: .5rem; border: 1px solid #ccc; border-radius: 4px;" />
+                    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color: red; font-size: 0.9em;">Errore</span>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label for="descrizione" style="display: block; margin-bottom: .5rem; font-weight: bold;">Descrizione:</label>
+                    <textarea id="descrizione" th:field="*{descrizione}" style="width: 100%; padding: .5rem; min-height: 100px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                    <span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" style="color: red; font-size: 0.9em;">Errore</span>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label for="capienzaMax" style="display: block; margin-bottom: .5rem; font-weight: bold;">Capienza Massima:</label>
+                    <input type="number" id="capienzaMax" th:field="*{capienzaMax}" min="1" max="100" required style="width: 100%; padding: .5rem; border: 1px solid #ccc; border-radius: 4px;" />
+                    <span th:if="${#fields.hasErrors('capienzaMax')}" th:errors="*{capienzaMax}" style="color: red; font-size: 0.9em;">Errore</span>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label for="dataOra" style="display: block; margin-bottom: .5rem; font-weight: bold;">Data e Ora:</label>
+                    <input type="datetime-local" id="dataOra" th:field="*{dataOra}" required style="width: 100%; padding: .5rem; border: 1px solid #ccc; border-radius: 4px;" />
+                    <span th:if="${#fields.hasErrors('dataOra')}" th:errors="*{dataOra}" style="color: red; font-size: 0.9em;">Errore</span>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <label for="istruttore" style="display: block; margin-bottom: .5rem; font-weight: bold;">Istruttore:</label>
+                    <select id="istruttore" th:field="*{istruttore}" style="width: 100%; padding: .5rem; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="">Nessun Istruttore (Seleziona per assegnare)</option>
+                        <option th:each="ist : ${istruttori}" th:value="${ist.id}" th:text="${ist.nome + ' ' + ist.cognome}"></option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-red">Aggiorna Corso</button>
+                    <a th:href="@{'/corsi/' + ${corso.id}}" class="btn btn-ghost">Annulla</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Iscritti - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh;">
+        <div class="wrap">
+            <h2 class="sec__title" style="color: var(--gold); margin-bottom: 2rem;">Elenco Iscritti</h2>
+
+            <div th:if="${iscritti == null or iscritti.isEmpty()}">
+                <p style="color: var(--paper); font-size: 1.2rem;">Non ci sono iscritti registrati.</p>
+            </div>
+
+            <div th:unless="${iscritti == null or iscritti.isEmpty()}" style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden;">
+                    <thead>
+                        <tr style="background: rgba(255,255,255,0.1); text-align: left; color: var(--gold);">
+                            <th style="padding: 1rem;">Nome</th>
+                            <th style="padding: 1rem;">Cognome</th>
+                            <th style="padding: 1rem;">Email</th>
+                            <th style="padding: 1rem;">Codice Fiscale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="iscritto : ${iscritti}" style="border-top: 1px solid rgba(255,255,255,0.1); color: rgba(247,244,239, 0.9);">
+                            <td style="padding: 1rem;" th:text="${iscritto.nome}">Nome</td>
+                            <td style="padding: 1rem;" th:text="${iscritto.cognome}">Cognome</td>
+                            <td style="padding: 1rem;" th:text="${iscritto.email}">Email</td>
+                            <td style="padding: 1rem;" th:text="${iscritto.codiceFiscale}">CF</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

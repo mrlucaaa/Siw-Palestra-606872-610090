@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Registrazione Completata - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 5rem;">
+        <div class="wrap" style="width: 100%; max-width: 600px; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 8px; text-align: center;">
+            <h2 style="margin-bottom: 1rem; color: #51cf66;">Registrazione Completata!</h2>
+            
+            <p style="font-size: 1.2rem; color: var(--paper); margin-bottom: 2rem;">
+                Benvenuto, <strong th:text="${utente.nome} + ' ' + ${utente.cognome}">Nome Utente</strong>!
+                Il tuo account è stato creato con successo.
+            </p>
+            
+            <a th:href="@{/login}" class="btn btn-red" style="font-size: 1.1rem; padding: 0.75rem 2rem;">Vai al Login</a>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

@@ -25,7 +25,7 @@ public class Recensione {
 	@NotNull
 	private Long numeroStelle;
 	@NotNull
-	private LocalDateTime dataOra;
+	private LocalDateTime dataOra = LocalDateTime.now();
 	
 	@ManyToOne
 	private Utente utente;

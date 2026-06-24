@@ -16,8 +16,14 @@
         <ul class="nav__links">
             <li><a th:href="@{/}">Home</a></li>
             <li><a th:href="@{/corsi}">Corsi</a></li>
-            <li><a th:href="@{/istruttori}">Team</a></li>
-            <li><a th:href="@{/login}" class="btn btn-red">Accedi</a></li>
+            <li sec:authorize="hasAuthority('CLIENTE')"><a th:href="@{/utente/prenotazioni}" style="color: var(--gold);">Le mie Prenotazioni</a></li>
+            <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" class="btn btn-red">Accedi</a></li>
+            <li sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 1rem;">
+                <span style="color: var(--gold); font-weight: bold; text-transform: uppercase;" sec:authentication="name"></span>
+                <form th:action="@{/logout}" method="post" style="margin: 0; padding: 0;">
+                    <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--red); color: var(--red); cursor: pointer; padding: 0.5rem 1rem;">Logout</button>
+                </form>
+            </li>
         </ul>
     </nav>
 

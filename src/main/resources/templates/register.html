@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head('Registrazione - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh; padding-top: 8rem;">
+        <div class="wrap" style="max-width: 600px;">
+            <h2 style="margin-bottom: 2rem; text-align: center;">Crea un Account</h2>
+            
+            <form th:action="@{/register}" method="post" style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px;">
+                
+                <div th:object="${utente}">
+                    <h3 style="margin-bottom: 1rem; color: var(--gold); font-size: 1.5rem;">Dati Personali</h3>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="nome" style="color: var(--paper);">Nome</label>
+                        <input type="text" id="nome" th:field="*{nome}" required style="border: none;" />
+                        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color: #ff6b6b; font-size: 0.85rem;"></span>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="cognome" style="color: var(--paper);">Cognome</label>
+                        <input type="text" id="cognome" th:field="*{cognome}" required style="border: none;" />
+                        <span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}" style="color: #ff6b6b; font-size: 0.85rem;"></span>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="codiceFiscale" style="color: var(--paper);">Codice Fiscale</label>
+                        <input type="text" id="codiceFiscale" th:field="*{codiceFiscale}" required style="border: none;" />
+                        <span th:if="${#fields.hasErrors('codiceFiscale')}" th:errors="*{codiceFiscale}" style="color: #ff6b6b; font-size: 0.85rem;"></span>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label for="email" style="color: var(--paper);">Email</label>
+                        <input type="email" id="email" th:field="*{email}" required style="border: none;" />
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: #ff6b6b; font-size: 0.85rem;"></span>
+                    </div>
+                </div>
+
+                <div th:object="${credentials}">
+                    <h3 style="margin-bottom: 1rem; color: var(--gold); font-size: 1.5rem;">Credenziali</h3>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="username" style="color: var(--paper);">Username</label>
+                        <input type="text" id="username" th:field="*{username}" required style="border: none;" />
+                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: #ff6b6b; font-size: 0.85rem;"></span>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label for="password" style="color: var(--paper);">Password (min 6 caratteri)</label>
+                        <input type="password" id="password" th:field="*{password}" required style="border: none;" />
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: #ff6b6b; font-size: 0.85rem;"></span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-red" style="width: 100%; justify-content: center;">Registrati</button>
+                
+                <p style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem;">
+                    Hai già un account? <a th:href="@{/login}" style="color: var(--red); font-weight: bold;">Accedi</a>
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>

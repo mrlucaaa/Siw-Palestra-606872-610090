@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/base :: head('Corsi - SIW Fitness')}"></head>
+<body>
+    <div th:replace="~{fragments/base :: navbar}"></div>
+
+    <section class="sec sec--dark" style="min-height: 100vh;">
+        <div class="wrap">
+            <h2 style="margin-bottom: 2rem;">I Nostri Corsi</h2>
+            
+            <div sec:authorize="hasAuthority('ADMIN')" style="margin-bottom: 2rem;">
+                <a th:href="@{/admin/corsi/new}" class="btn btn-red">Aggiungi Nuovo Corso</a>
+            </div>
+
+            <div class="cards" th:if="${corsi != null and !corsi.isEmpty()}">
+                <div class="card" th:each="corso : ${corsi}">
+                    <div class="card__content">
+                        <span class="card__tag tag-red" th:if="${corso.istruttore != null}" th:text="${corso.istruttore.nome + ' ' + corso.istruttore.cognome}">Istruttore</span>
+                        <h3 th:text="${corso.nome}">Nome Corso</h3>
+                    </div>
+                    <p th:text="${corso.descrizione}" style="color: rgba(247,244,239, 0.9);">Descrizione breve del corso...</p>
+                    <div class="card__actions" style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a th:href="@{'/corsi/' + ${corso.id}}" class="btn btn-dark">Vedi Dettagli</a>
+                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/admin/corsi/' + ${corso.id}}" class="btn btn-ghost" onclick="return confirm('Sei sicuro di voler eliminare questo corso?')">Elimina</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div th:if="${corsi == null or corsi.isEmpty()}">
+                <p>Non ci sono corsi disponibili al momento.</p>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/base :: footer}"></div>
+</body>
+</html>
