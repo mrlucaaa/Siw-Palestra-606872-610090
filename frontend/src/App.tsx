@@ -1,4 +1,3 @@
-import React from 'react';
 import RicercaCorsi from './components/RicercaCorsi';
 import '../../src/main/resources/static/css/style.css';
 
