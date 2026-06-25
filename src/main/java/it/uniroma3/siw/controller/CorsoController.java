@@ -13,16 +13,23 @@ import it.uniroma3.siw.model.Corso;
 import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.service.CorsoService;
 import it.uniroma3.siw.service.IstruttoreService;
+import it.uniroma3.siw.service.PrenotazioneService;
 import jakarta.validation.Valid;
+
+import it.uniroma3.siw.service.RecensioneService;
 
 @Controller
 public class CorsoController {
 	private CorsoService corsoService;
 	private IstruttoreService istruttoreService;
+	private RecensioneService recensioneService;
+	private PrenotazioneService prenotazioneService;
 
-	public CorsoController(CorsoService corsoService, IstruttoreService istruttoreService) {
+	public CorsoController(CorsoService corsoService, IstruttoreService istruttoreService, RecensioneService recensioneService, PrenotazioneService prenotazioneService) {
 		this.corsoService = corsoService;
 		this.istruttoreService = istruttoreService;
+		this.recensioneService = recensioneService;
+		this.prenotazioneService = prenotazioneService;
 	}
 	
 	@GetMapping("/corsi")
@@ -33,7 +40,9 @@ public class CorsoController {
 	
 	@GetMapping("/corsi/{id}")
 	public String show(@PathVariable("id") Long id, Model model){
-		model.addAttribute("corso", this.corsoService.findByIdWithIstruttoreAndUtenti(id));
+		Corso corso = this.corsoService.findByIdWithIstruttoreAndUtenti(id);
+		model.addAttribute("corso", corso);
+		model.addAttribute("recensioni", this.recensioneService.findByCorso(corso));
 		model.addAttribute("recensione", new Recensione());
 		return "corsi/show.html";
 	}
@@ -78,8 +87,10 @@ public class CorsoController {
 	
 	@GetMapping("/istruttore/corsi/{id}/iscritti")
 	public String showIscrittiAlCorso(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("corso", this.corsoService.findByIdWithIstruttoreAndUtenti(id));
-		return "corsi/iscritti.html";
+		Corso corso = this.corsoService.findByIdWithIstruttoreAndUtenti(id);
+		model.addAttribute("corso", corso);
+		model.addAttribute("prenotazioni", this.prenotazioneService.findByCorso(corso));
+		return "prenotazioni/iscritti.html";
 	}
 	
 	@PostMapping("/istruttore/corsi/edit/{id}")

@@ -66,4 +66,8 @@ public class PrenotazioneService {
 		return this.prenotazioneRepository.findByUtente(utente);
 	}
 	
+	public Iterable<Prenotazione> findByCorso(Corso corso){
+		return this.prenotazioneRepository.findByCorso(corso);
+	}
+	
 }

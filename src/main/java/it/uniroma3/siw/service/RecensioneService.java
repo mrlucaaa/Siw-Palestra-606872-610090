@@ -11,6 +11,8 @@ import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.RecensioneRepository;
 import it.uniroma3.siw.exception.RecensioneDuplicataException;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class RecensioneService {
@@ -22,6 +24,9 @@ public class RecensioneService {
 		this.credentialsService = credentialsService;
 	}
 	
+	public List<Recensione> findByCorso(Corso corso) {
+		return this.recensioneRepository.findByCorsoWithUtente(corso);
+	}
 	
 	@Transactional
 	public void save(Corso corso, Recensione recensione, Utente utente) throws RecensioneDuplicataException {

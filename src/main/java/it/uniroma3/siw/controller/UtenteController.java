@@ -14,11 +14,7 @@ public class UtenteController {
 		this.utenteService = utenteService;
 	}
 	
-	@GetMapping("/istruttore/iscritti")
-	public String showIscritti(Model model) {
-		model.addAttribute("iscritti", this.utenteService.findAll());
-		return "utenti/list.html";
-	}
+
 	
 	
 }

@@ -11,8 +11,11 @@ import it.uniroma3.siw.model.Corso;
 
 public interface CorsoRepository extends CrudRepository<Corso, Long>{
 	
-	@Query("SELECT c FROM Corso c LEFT JOIN FETCH c.istruttore LEFT JOIN FETCH c.prenotazioni WHERE c.id = :id")
+	@Query("SELECT c FROM Corso c LEFT JOIN FETCH c.istruttore LEFT JOIN FETCH c.prenotazioni p LEFT JOIN FETCH p.utente WHERE c.id = :id")
 	Optional<Corso> findByIdWithIstruttoreAndPrenotazioni(@Param("id") Long id);
+	
+	@Query("SELECT c FROM Corso c LEFT JOIN FETCH c.istruttore")
+	Iterable<Corso> findAll();
 	
 	public boolean existsByDataOraAndNome(LocalDateTime dataOra, String nome);
 

@@ -49,12 +49,12 @@
         <div class="wrap" style="margin-top: 4rem;">
             <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 1.8rem;">Recensioni</h3>
             
-            <div th:if="${corso.recensioni == null or corso.recensioni.isEmpty()}">
+            <div th:if="${recensioni == null or recensioni.isEmpty()}">
                 <p style="color: var(--paper); font-style: italic;">Nessuna recensione ancora presente per questo corso.</p>
             </div>
             
-            <div th:unless="${corso.recensioni == null or corso.recensioni.isEmpty()}" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem;">
-                <div th:each="rec : ${corso.recensioni}" class="card" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px;">
+            <div th:unless="${recensioni == null or recensioni.isEmpty()}" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem;">
+                <div th:each="rec : ${recensioni}" class="card" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <strong style="color: var(--gold);" th:text="${rec.utente.nome + ' ' + rec.utente.cognome}">Nome Utente</strong>
                         <span style="color: #fcc419;" th:text="${'★'.repeat(rec.numeroStelle)} + ${'☆'.repeat(5 - rec.numeroStelle)}">★★★★★</span>
